@@ -1,0 +1,99 @@
+<div class="container">
+  <h1>Angular HttpClient</h1>
+
+<!--  -->
+
+  <form class="card" [formGroup]="form" (ngSubmit)="addUser()">
+    <h1>Registration</h1>
+
+    <div class="form-control">
+      <label>email</label>
+      <input type="text" placeholder="Email" formControlName="email">
+      <div
+              *ngIf="form.get('email').invalid && form.get('email').touched"
+              class="validation"
+      >
+        <small *ngIf="form.get('email').errors.required">
+          email can't be blank
+        </small>
+        <small *ngIf="form.get('email').errors.pattern">
+          enter valid email!!
+        </small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label>password</label>
+      <input type="password" placeholder="password" formControlName="password">
+
+      <div
+              *ngIf="form.get('password').invalid && form.get('password').touched"
+              class="validation"
+      >
+        <small *ngIf="form.get('password').errors.required">
+          password can't be blank
+        </small>
+        <small *ngIf="form.get('password').errors.minlength">
+          enter valid password min lenght {{form.get('password').errors.minlength.requiredLength}}.
+          now simbol quantity {{form.get('password').errors.minlength.actualLength}}
+        </small>
+
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label>username</label>
+      <input  type="text" placeholder="username" formControlName="username">
+        <div
+                *ngIf="form.get('username').invalid && form.get('username').touched"
+                class="validation"
+        >
+            <small *ngIf="form.get('username').errors.required">
+                username can't be blank
+            </small>
+        </div>
+    </div>
+
+      <div class="form-control">
+        <label>country</label>
+        <input type="text" placeholder="country" formControlName="country">
+          <div
+                  *ngIf="form.get('country').invalid && form.get('country').touched"
+                  class="validation"
+          >
+              <small *ngIf="form.get('country').errors.required">
+                  country can't be blank
+              </small>
+          </div>
+      </div>
+
+    <button class="btn" type="submit" [disabled]="form.invalid">submit</button>
+
+  </form>
+
+<!---->
+<!--  -->
+  <hr>
+<div *ngIf="user.length; else noUser">
+  <div class="card" *ngFor="let user of user">
+    <ul>
+      <li>username: {{user.username}}</li>
+      <li>password: {{user.password}}</li>
+      <li>password2: {{user.password2}}</li>
+      <li>email: {{user.email}}</li>
+      <li>country: {{user.country}}</li>
+  </ul>
+    <ul>
+      <button class ='btn btn-danger' (click)="removeUser(user.id)">delete</button>
+    </ul>
+  </div>
+</div>
+<ng-template #noUser>
+    <h3>NO user</h3>
+</ng-template>
+
+
+</div>
+
+
+
